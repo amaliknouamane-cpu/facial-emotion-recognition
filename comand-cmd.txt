@@ -1,0 +1,9 @@
+Start the frontend:
+python -m http.server 5500 -d frontend
+
+Start the backend (in a second terminal):
+cd backend
+python server.py
+
+Frontend URL:
+http://localhost:5500

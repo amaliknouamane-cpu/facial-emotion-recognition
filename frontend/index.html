@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Emotion Detection</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">PyTorch .pth</p>
+          <h1>Emotion Detection</h1>
+        </div>
+        <div class="model-box">
+          <span id="modelStatus">Verification du modele...</span>
+          <label class="small-button">
+            Charger .pth
+            <input id="modelInput" type="file" accept=".pth,.pt" hidden />
+          </label>
+        </div>
+      </header>
+
+      <section id="loginPage" class="page auth-page active">
+        <div class="auth-visual">
+          <h2>Detection intelligente des emotions</h2>
+          <p>Une interface web moderne pour tester votre modele avec image, video ou camera live.</p>
+        </div>
+        <form class="auth-card" id="loginForm">
+          <h2>Connexion</h2>
+          <p>Connectez-vous pour acceder au tableau de bord.</p>
+          <input id="loginEmail" type="email" placeholder="Email" required />
+          <input id="loginPassword" type="password" placeholder="Password" required />
+          <div class="form-message" id="loginMessage"></div>
+          <button type="submit">Login</button>
+          <button type="button" class="ghost" data-page="registerPage">Creer un compte</button>
+        </form>
+      </section>
+
+      <section id="registerPage" class="page auth-page">
+        <div class="auth-visual">
+          <h2>Un espace simple pour vos tests CNN</h2>
+          <p>Chargez votre modele .pth et testez la prediction depuis le navigateur.</p>
+        </div>
+        <form class="auth-card" id="registerForm">
+          <h2>Inscription</h2>
+          <p>Creation de compte locale pour la demo.</p>
+          <input id="registerUsername" type="text" placeholder="Username" required />
+          <input id="registerEmail" type="email" placeholder="Email" required />
+          <input id="registerPassword" type="password" placeholder="Password" required />
+          <input id="registerConfirmPassword" type="password" placeholder="Confirm Password" required />
+          <div class="form-message" id="registerMessage"></div>
+          <button type="submit">Sign up</button>
+          <button type="button" class="ghost" data-page="loginPage">J'ai deja un compte</button>
+        </form>
+      </section>
+
+      <section id="homePage" class="page">
+        <div class="section-title">
+          <p class="eyebrow">Choisir un mode</p>
+          <h2>Home Page</h2>
+          <p class="welcome-text" id="welcomeText">Bienvenue</p>
+          <button id="logoutButton" class="ghost logout-button" type="button">Deconnexion</button>
+        </div>
+        <div class="mode-grid">
+          <article class="mode-card blue" data-page="videoPage">
+            <span>Video</span>
+            <h3>Video mode</h3>
+            <p>Importer une video et detecter l'emotion.</p>
+          </article>
+          <article class="mode-card green" data-page="imagePage">
+            <span>Image</span>
+            <h3>Image mode</h3>
+            <p>Analyser une photo depuis votre ordinateur.</p>
+          </article>
+          <article class="mode-card purple" data-page="livePage">
+            <span>Live</span>
+            <h3>Live cam</h3>
+            <p>Utiliser la webcam et envoyer une frame au backend.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="imagePage" class="page detector-page">
+        <nav class="page-nav"><button class="ghost" data-page="homePage">Retour</button><h2>Image mode</h2></nav>
+        <div class="detector-layout">
+          <div class="preview-panel"><img id="imagePreview" class="hidden-media" alt="Apercu image" /></div>
+          <aside class="control-panel">
+            <label class="browse-button">
+              Browse image
+              <input id="imageInput" type="file" accept="image/*" hidden />
+            </label>
+            <button id="detectImage">Detect emotion</button>
+            <div class="result" id="imageResult">Resultat: --</div>
+            <div class="probabilities" id="imageProbabilities"></div>
+          </aside>
+        </div>
+      </section>
+
+      <section id="videoPage" class="page detector-page">
+        <nav class="page-nav"><button class="ghost" data-page="homePage">Retour</button><h2>Video mode</h2></nav>
+        <div class="detector-layout">
+          <div class="preview-panel stacked-preview">
+            <video id="videoPreview" controls></video>
+            <img id="videoFramePreview" class="hidden-media" alt="Frame detectee" />
+          </div>
+          <aside class="control-panel">
+            <input id="videoInput" type="file" accept="video/*" />
+            <button id="detectVideoFrame">Detect emotion sur frame</button>
+            <canvas id="videoCanvas" hidden></canvas>
+            <div class="result" id="videoResult">Resultat: --</div>
+            <div class="probabilities" id="videoProbabilities"></div>
+          </aside>
+        </div>
+      </section>
+
+      <section id="livePage" class="page detector-page">
+        <nav class="page-nav"><button class="ghost" data-page="homePage">Retour</button><h2>Live mode</h2></nav>
+        <div class="detector-layout">
+          <div class="preview-panel live-panel">
+            <video id="cameraPreview" autoplay muted playsinline></video>
+            <img id="livePreview" class="hidden-media" alt="Frame live detectee" />
+          </div>
+          <aside class="control-panel">
+            <button id="startCamera">Demarrer camera</button>
+            <button id="detectLive">Detect emotion</button>
+            <canvas id="liveCanvas" hidden></canvas>
+            <div class="result" id="liveResult">Resultat: --</div>
+            <div class="probabilities" id="liveProbabilities"></div>
+          </aside>
+        </div>
+      </section>
+    </main>
+    <script src="script.js"></script>
+  </body>
+</html>
