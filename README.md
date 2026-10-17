@@ -1,54 +1,112 @@
-# Emotion AI Studio
+# Emotion AI Studio — Facial Emotion Recognition
 
-Interface Python/Tkinter pour tester un modele PyTorch `.pth` en trois modes:
+A Python-based facial emotion recognition application powered by PyTorch. Emotion AI Studio provides multiple ways to analyze facial expressions through a desktop interface and a web-based frontend.
 
-- Image
-- Video
-- Live cam
+## Features
+
+- **Image analysis:** Predict emotions from an image.
+- **Video analysis:** Analyze facial expressions in video.
+- **Live camera:** Perform real-time emotion recognition using a webcam.
+- **Model selection:** Load a compatible `.pth` model.
+- **Web interface:** Use the frontend with a Python backend.
+- **User accounts:** Store account information in a local SQLite database.
+
+## Technologies
+
+- Python
+- PyTorch
+- Tkinter
+- OpenCV
+- Pillow
+- Flask or the backend framework configured in `backend/server.py`
+- HTML, CSS, JavaScript
+- SQLite
+
+## Project Structure
+
+```text
+facial-emotion-recognition/
+├── app.py
+├── model.pth
+├── model_loader.py
+├── requirements.txt
+├── start_project.bat
+├── backend/
+│   ├── README.md
+│   └── server.py
+└── frontend/
+    ├── index.html
+    ├── script.js
+    └── styles.css
+```
+
+## Requirements
+
+- Python installed on your computer
+- A compatible `.pth` model file
+- Dependencies listed in `requirements.txt`
 
 ## Installation
 
-```powershell
-pip install -r requirements.txt
+Clone the repository:
+
+```bash
+git clone https://github.com/amaliknouamane-cpu/facial-emotion-recognition.git
+cd facial-emotion-recognition
 ```
 
-## Lancement
+Install the dependencies:
 
-```powershell
+```bash
+python -m pip install -r requirements.txt
+```
+
+## Run the Desktop Application
+
+```bash
 python app.py
 ```
 
-## Version frontend + backend
+## Run the Web Application
 
-Backend:
+Open a terminal in the project directory and start the backend:
 
-```powershell
+```bash
 python backend/server.py
 ```
 
-Frontend:
+In a second terminal, start the frontend server:
 
-```powershell
+```bash
 python -m http.server 5500 -d frontend
 ```
 
-Puis ouvrez:
+Open the frontend in your browser:
 
-```text
 http://127.0.0.1:5500
-```
 
-Alternative simple:
+Make sure the backend is running and that the frontend is configured to communicate with its correct address.
 
-Ouvrez le fichier `frontend/index.html` dans le navigateur.
+## Model
 
-Le backend utilise `model.pth` place dans ce dossier, ou le modele envoye depuis le bouton `Charger .pth` du frontend.
+The application uses `model.pth` by default. The current model loader identifies the included model as **ReXNet-150**.
 
-Les comptes utilisateur sont stockes automatiquement dans la base SQLite `users.db`.
-Si un email n'existe pas, la page de connexion affiche `Compte inexistant.`
+To use another checkpoint, select a compatible `.pth` file through the application's model-selection interface, where supported.
 
-## Utiliser votre modele `.pth`
+The checkpoint must match an architecture supported by `model_loader.py`.
 
-Placez votre fichier dans ce dossier avec le nom `model.pth`, ou cliquez sur `Changer modele .pth` dans l'interface.
+## User Data
 
-Le fichier `model_loader.py` contient une architecture CNN par defaut. Si votre `.pth` a ete entraine avec une autre architecture, remplacez la classe `SmallEmotionCNN` par la meme architecture que celle utilisee pendant l'entrainement.
+User accounts are stored locally in an SQLite database named `users.db`. This database is generated at runtime and is excluded from version control.
+
+## Notes
+
+- Webcam functionality requires a working camera and appropriate permissions.
+- Model predictions depend on the checkpoint, preprocessing, and training data.
+- Large model files may increase download time.
+
+## Author
+
+**Nouamane**
+
+GitHub: https://github.com/amaliknouamane-cpu
